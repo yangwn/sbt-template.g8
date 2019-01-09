@@ -10,7 +10,7 @@ object Settings {
     scalaVersion := "$scala_version$",
     organization := "$package$",
     publishMavenStyle := true,
-    publishArtifact in Test := false，
+    publishArtifact in Test := false,
 
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xmx2G"),
     scalacOptions ++= Seq("-deprecation", "-unchecked", "-optimize","-feature"),
