@@ -16,6 +16,6 @@ lazy val $appname$ = (project in file("$appname$")).
   settings(Settings.$appname$Settings: _*).
   settings(
     mainClass in assembly := Some("$package$.$appname;format="word"$.$appname;format="Camel"$"),
-  )
+  ).
   dependsOn($module1$, $module2$).
   configs(Test)
