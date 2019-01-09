@@ -6,7 +6,7 @@ import sbtassembly.AssemblyPlugin.autoImport._
 object Settings {
 
   lazy val settings: Seq[Def.Setting[_]] = Seq(
-    version := "$version$" + sys.props.getOrElse("buildNumber", default="0-SNAPSHOT"),
+    version := "$version$" + sys.props.getOrElse("buildNumber", default="-SNAPSHOT"),
     scalaVersion := "$scala_version$",
     organization := "$package$",
     publishMavenStyle := true,
@@ -15,6 +15,14 @@ object Settings {
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xmx2G"),
     scalacOptions ++= Seq("-deprecation", "-unchecked", "-optimize","-feature"),
     fork := true,
+
+    assemblyMergeStrategy in assembly := {
+      case PathList("META-INF", xs@_*) => MergeStrategy.discard
+      case PathList(xs @ _*) if xs.last endsWith ".html" => MergeStrategy.discard
+      case PathList(xs @ _*) if xs.last endsWith ".properties" => MergeStrategy.filterDistinctLines
+      case PathList(xs @ _*) if xs.last endsWith ".conf" => MergeStrategy.filterDistinctLines
+      case _ => MergeStrategy.first
+    }
 
     resolvers += Opts.resolver.mavenLocalFile,
 
@@ -45,20 +53,15 @@ object Settings {
 
   lazy val $appname$Settings = Seq(
     assemblyJarName in assembly := "$appname$-" + version.value + ".jar",
+    mainClass in assembly := Some("$package$.$appname;format="word"$.$appname;format="Camel"$"),
     test in assembly := {},
     target in assembly := file(baseDirectory.value + "/../bin/"),
+
     assemblyOption in assembly := (assemblyOption in assembly)
     .value.copy(
       includeScala = false,
-      includeDependency=true
+      includeDependency = true
     ),
-    assemblyMergeStrategy in assembly := {
-      case PathList("META-INF", xs@_*) => MergeStrategy.discard
-      case PathList(xs @ _*) if xs.last endsWith ".html" => MergeStrategy.discard
-      case PathList(xs @ _*) if xs.last endsWith ".properties" => MergeStrategy.filterDistinctLines
-      case PathList(xs @ _*) if xs.last endsWith ".conf" => MergeStrategy.filterDistinctLines
-      case _ => MergeStrategy.first
-    }
   )
 
   lazy val $module1$Settings = Seq()
