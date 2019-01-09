@@ -47,13 +47,16 @@ object Settings {
     assemblyJarName in assembly := "$appname$-" + version.value + ".jar",
     test in assembly := {},
     target in assembly := file(baseDirectory.value + "/../bin/"),
-    assemblyOption in assembly := (assemblyOption in assembly).value.copy(
+    assemblyOption in assembly := (assemblyOption in assembly)
+    .value.copy(
       includeScala = false,
-      includeDependency=true),
+      includeDependency=true
+    ),
     assemblyMergeStrategy in assembly := {
       case PathList("META-INF", xs@_*) => MergeStrategy.discard
-      case PathList(xs @ _*) if xs.last endsWith ".properties" => MergeStrategy.filterDistinctLines
       case PathList(xs @ _*) if xs.last endsWith ".html" => MergeStrategy.discard
+      case PathList(xs @ _*) if xs.last endsWith ".properties" => MergeStrategy.filterDistinctLines
+      case PathList(xs @ _*) if xs.last endsWith ".conf" => MergeStrategy.filterDistinctLines
       case _ => MergeStrategy.first
     }
   )
