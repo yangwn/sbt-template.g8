@@ -16,14 +16,6 @@ object Settings {
     scalacOptions ++= Seq("-deprecation", "-unchecked", "-optimize","-feature"),
     fork := true,
 
-    assemblyMergeStrategy in assembly := {
-      case PathList("META-INF", xs@_*) => MergeStrategy.discard
-      case PathList(xs @ _*) if xs.last endsWith ".html" => MergeStrategy.discard
-      case PathList(xs @ _*) if xs.last endsWith ".properties" => MergeStrategy.filterDistinctLines
-      case PathList(xs @ _*) if xs.last endsWith ".conf" => MergeStrategy.filterDistinctLines
-      case _ => MergeStrategy.first
-    }
-
     resolvers += Opts.resolver.mavenLocalFile,
 
     // Resolver Repository
@@ -56,12 +48,18 @@ object Settings {
     mainClass in assembly := Some("$package$.$appname;format="word"$.$appname;format="Camel"$"),
     test in assembly := {},
     target in assembly := file(baseDirectory.value + "/../bin/"),
-
     assemblyOption in assembly := (assemblyOption in assembly)
     .value.copy(
       includeScala = false,
-      includeDependency = true
+      includeDependency = false
     ),
+    assemblyMergeStrategy in assembly := {
+      case PathList("META-INF", xs@_*) => MergeStrategy.discard
+      case PathList(xs @ _*) if xs.last endsWith ".html" => MergeStrategy.discard
+      case PathList(xs @ _*) if xs.last endsWith ".properties" => MergeStrategy.filterDistinctLines
+      case PathList(xs @ _*) if xs.last endsWith ".conf" => MergeStrategy.filterDistinctLines
+      case _ => MergeStrategy.first
+    }
   )
 
   lazy val $module1$Settings = Seq()
