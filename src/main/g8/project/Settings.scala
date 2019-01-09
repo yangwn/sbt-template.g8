@@ -10,6 +10,7 @@ object Settings {
     version := "$version$" + sys.props.getOrElse("buildNumber", default="-SNAPSHOT"),
     scalaVersion := "$scala_version$",
     organization := "$package$",
+
     publishMavenStyle := true,
     publishArtifact in Test := false,
 
@@ -26,7 +27,7 @@ object Settings {
       case PathList(xs @ _*) if xs.last endsWith ".properties" => MergeStrategy.filterDistinctLines
       case PathList(xs @ _*) if xs.last endsWith ".conf" => MergeStrategy.filterDistinctLines
       case _ => MergeStrategy.first
-    }
+    },
 
     // Resolver Repository
     resolvers += Opts.resolver.mavenLocalFile,
