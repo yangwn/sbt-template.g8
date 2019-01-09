@@ -1,12 +1,12 @@
-# Scala sbt template (Multi-Module with App)
+# Cisco inner Scala sbt template (Multi-Module with App)
 
-A [giter8][1] template for Scala projects using sbt. 
-This template sets up a multi-module project. It also includes an application that depends on the modules. 
+A [giter8][1] template for Scala projects using sbt.
+This template sets up a multi-module project. It also includes an application that depends on the modules.
 An assembly plugin is referenced for building uber-jar of the application.
 
 ## Usage
 
-```sbt new lewismj/sbt-template.g8```
+```sbt new cisco-as/inner/sbt-project-template.g8```
 
 You can then run:
 
