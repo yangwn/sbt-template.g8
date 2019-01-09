@@ -5,7 +5,7 @@ import sbtassembly.AssemblyPlugin.autoImport._
 
 object Settings {
 
-  lazy val settings: Seq[Def.Setting[_]] = Seq(
+  lazy val settings = Seq(
 
     version := "$version$" + sys.props.getOrElse("buildNumber", default="-SNAPSHOT"),
     scalaVersion := "$scala_version$",
