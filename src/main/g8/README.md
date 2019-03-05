@@ -42,3 +42,10 @@
 |  +-- build.properties
 |  +-- plugins.sbt
 ~~~
+
+## 编译:
+```sbt assemblyPackageDependency``` 后生成的jar
+```touch application.conf``` 与jar包同级目录下创建application.conf,填入必要参数
+
+## 运行:
+./spark-submit --jars **-assembly-0.0.1-SNAPSHOT-deps.jar **-0.0.1-SNAPSHOT.jar
